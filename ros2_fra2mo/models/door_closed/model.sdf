@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="door_closed">
+    <static>true</static>
+
+    <link name="link">
+      <!-- metto la porta con il fondo a z=0 -->
+      <pose>0 0 0 0 0 0</pose>
+
+      <collision name="collision">
+        <pose>0 0 1.05 0 0 0</pose>
+        <geometry>
+          <!-- width 1.20m, thickness 0.08m, height 2.10m -->
+          <box><size>1.20 0.08 2.0</size></box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <pose>0 0 1.05 0 0 0</pose>
+        <geometry>
+          <box><size>1.60 0.08 2.</size></box>
+        </geometry>
+        <material>
+          <ambient>0.3 0.0 0.0 1</ambient>
+          <diffuse>1.0 0.0 0.0 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+          <emissive>0.0 0.0 0.0 1</emissive>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

@@ -1,0 +1,92 @@
+coordinator:
+  ros__parameters:
+    status_topic: "/final_project_core/status"
+    aruco_pose_topic: "/aruco_single/pose"
+    nav2_action_name: "/navigate_to_pose"
+
+    door:
+      enable: true
+      world: "final_project_world"
+      entity_name: "door_closed"
+      x: 3.55
+      y: 0.03
+      yaw: 1.5708
+      z_open: 1.6
+
+    enter:
+      enable: true
+      require_door_opened: true
+      request_topic: "/final_project_core/enter_room_request"
+      map_frame: "map"
+      x: 8.20
+      y: 0.03
+      yaw: 1.5708
+      final_x: 6.23
+      final_y: -2.66
+      final_yaw: 1.5708
+      use_final: true
+      max_retries: 5
+      retry_delay_sec: 1.0
+      clear_costmaps_on_retry: true
+      clear_local_srv: "/local_costmap/clear_entirely_local_costmap"
+      clear_global_srv: "/global_costmap/clear_entirely_global_costmap"
+
+
+    interaction:
+      map_frame: "map"
+      x: 0.6
+      y: -0.73
+      yaw: 0.32
+
+      dwell_sec: 1.0
+      aruco_timeout_sec: 1.0
+      max_wait_sec: 20.0
+      cooldown_sec: 3.0
+
+      require_request: true
+      request_topic: "/final_project_core/interaction_request"
+
+      trigger_topic: "/final_project_core/interaction_start"
+      trigger_hold_true: true
+
+      wait_iiwa_done: true
+      iiwa_done_topic: "/final_project_core/iiwa_observe_done"
+      iiwa_done_timeout_sec: 8.0
+
+      press_topic: "/final_project_core/press_button_request"
+      wait_iiwa_press_done: true
+      iiwa_press_done_topic: "/final_project_core/iiwa_press_done"
+      iiwa_press_done_timeout_sec: 25.0
+
+      manual_press_topic: "/final_project_core/manual_press_request"
+      ready_topic: "/final_project_core/ready_to_press"
+      ready_valid_sec: 30.0
+
+      press_republish_sec: 0.5
+
+
+iiwa_gesture:
+  ros__parameters:
+    status_topic: "/final_project_core/status"
+
+    trigger_topic: "/final_project_core/interaction_start"
+    done_topic: "/final_project_core/iiwa_observe_done"
+
+    press_topic: "/final_project_core/press_button_request"
+    press_done_topic: "/final_project_core/iiwa_press_done"
+
+    action_name: "/iiwa/iiwa_arm_trajectory_controller/follow_joint_trajectory"
+    joint_names: [joint_a1, joint_a2, joint_a3, joint_a4, joint_a5, joint_a6, joint_a7]
+
+    observe_positions: [0.4, -0.78, 0.0, 1.75, 0.0, 0.8, 0.0]
+    observe_time_sec: 2.0
+
+    press_positions: [-0.5, -1.35, 0.0, 0.7, 0.0, -0.95, 0.0]
+    press_time_sec: 2.0
+    press_hold_sec: 0.3
+
+    rest_positions: [0.4, -0.78, 0.0, 1.75, 0.0, 0.8, 0.0]
+    rest_time_sec: 2.0
+
+    done_burst_count: 5
+    done_burst_period_sec: 0.1

@@ -1,0 +1,202 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="final_project_world">
+
+    <physics name='default_physics' default='0' type='ode'>
+      <gravity>0 0 -9.8066</gravity>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>10</iters>
+          <sor>1.3</sor>
+          <use_dynamic_moi_rescaling>0</use_dynamic_moi_rescaling>
+        </solver>
+        <constraints>
+          <cfm>0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100</contact_max_correcting_vel>
+          <contact_surface_layer>0.001</contact_surface_layer>
+        </constraints>
+      </ode>
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>250</real_time_update_rate>
+      <magnetic_field>6.0e-6 2.3e-5 -4.2e-5</magnetic_field>
+    </physics>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- Base field -->
+    <include>
+      <name>race_field</name>
+      <pose> 10 5 0.1 0 0 3.14159 </pose>
+      <uri>model://race_field</uri>
+    </include>
+
+  
+    <include>
+      <name>roof</name>
+      <pose> 10 -5 3.1 3.14159 0 3.14159 </pose>
+      <uri>model://roof</uri>
+    </include>
+
+    <!-- Round push button near iiwa -->
+    <model name="iiwa_button">
+      <!-- pavimento z=0.1, base alta 0.02 => centro base a 0.11 -->
+      <pose>1.30 0.38 0.11 0 0 0</pose>
+      <static>true</static>
+
+      <!-- Base (black, very low) -->
+      <link name="base">
+        <collision name="base_collision">
+          <geometry>
+            <cylinder>
+              <radius>0.06</radius>
+              <length>0.02</length>
+            </cylinder>
+          </geometry>
+        </collision>
+
+        <visual name="base_visual">
+          <geometry>
+            <cylinder>
+              <radius>0.06</radius>
+              <length>0.02</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.02 0.02 0.02 1</ambient>
+            <diffuse>0.05 0.05 0.05 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Button (red cylinder) -->
+      <link name="button">
+        <!-- sopra la base: h_base/2 + h_button/2 = 0.01 + 0.015 = 0.025 -->
+        <pose>0 0 0.025 0 0 0</pose>
+
+        <collision name="button_collision">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>0.03</length>
+            </cylinder>
+          </geometry>
+        </collision>
+
+        <visual name="button_visual">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>0.03</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.6 0.0 0.0 1</ambient>
+            <diffuse>0.9 0.0 0.0 1</diffuse>
+            <specular>0.3 0.3 0.3 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+
+    
+    <!-- Divider wall: left segment -->
+    <include>
+      <name>divider_1</name>
+      <pose>3.55 2.95 0.1 0 0 1.5708</pose>
+      <uri>model://divider_wall</uri>
+    </include>
+    <include>
+      <name>divider_2</name>
+      <pose>6.47 2.95 0.1 0 0 1.5708</pose>
+      <uri>model://divider_wall</uri>
+    </include>
+    <include>
+      <name>divider_3</name>
+      <pose>5.62 -0.90 0.1 0 0 0</pose>
+      <uri>model://divider_wall</uri>
+    </include>
+
+    <include>
+      <name>divider_6</name>
+      <pose>3.55 -3.0 0.1 0 0 1.5708</pose>
+      <uri>model://divider_wall</uri>
+    </include>
+  
+
+    <include>
+      <name>unknown_tunnel_1</name>
+      <pose>-1.80 2.40 0.10 0 0 1.5708</pose>
+      <uri>model://unknown_tunnel_1</uri>
+    </include>
+
+    <include>
+      <name>unknown_tunnel_2</name>
+      <pose>-1.80 -2.40 0.10 0 0 1.5708</pose>
+      <uri>model://unknown_tunnel_1</uri>
+    </include>
+
+
+    <!-- Unknown Obstacles-->
+    <include>
+      <name>unknown_obst_1</name> <!--high tower-->
+      <pose> -7.95 -2.15 0.1 0 0 0</pose>
+      <uri>model://unknown_obst_1</uri>
+    </include>
+
+    <include>
+      <name>unknown_obst_2</name> <!--low tower-->
+      <pose> -6.9 2.5 0.1 0 0 0</pose>
+      <uri>model://unknown_obst_2</uri>
+    </include> 
+
+    <include>
+      <name>unknown_obst_3 </name> <!--low tower-->
+      <pose> -8 0.5 0.1 0 0 0</pose>
+      <uri>model://unknown_obst_3</uri>
+    </include> 
+
+  
+    <include>
+      <name>intruder_two</name>
+      <pose> -0.5 -2.5 0.1 0 0 0</pose>
+      <uri>model://intruder</uri>
+    </include>
+
+
+        
+
+    <include>
+      <name>door_closed</name>
+      <pose>3.55 0.03 0.1 0 0 1.5708</pose>
+      <uri>model://door_closed</uri>
+    </include>
+
+
+
+
+
+    <!-- systems -->
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+
+  </world>
+</sdf>

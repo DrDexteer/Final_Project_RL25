@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="iiwa_gazebo" params="runtime_config_package controllers_file namespace prefix">
+
+    <gazebo>
+      <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+
+        <xacro:property name="ns" value="${namespace.strip('/')}" />
+
+        <xacro:if value="${ns != ''}">
+          <ros>
+            <namespace>${ns}</namespace>
+          </ros>
+        </xacro:if>
+
+        <robot_param_node>robot_state_publisher</robot_param_node>
+
+        <parameters>$(find ${runtime_config_package})/config/${controllers_file}</parameters>
+      </plugin>
+    </gazebo>
+
+    <gazebo reference="${prefix}link_7">
+      <material>Gazebo/Gray</material>
+    </gazebo>
+
+  </xacro:macro>
+</robot>
